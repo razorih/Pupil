@@ -14,7 +14,7 @@ The following example:
       return parseFloat(value) >= min;
     });
     
-    // Validate a string
+    // Validate two numbers with the same rule
     var result = Validator.validate({
       test: [5, "min:10"],
       test2: [15, "min:10"]
