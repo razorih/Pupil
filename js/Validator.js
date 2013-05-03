@@ -10,11 +10,15 @@
         }
 
         this.validationFunctions = {};
+        this.addDefaultFunctions();
     };
 
     context.Validator.prototype.addFunction = function(name, func) {
         this.validationFunctions[name] = func;
     };
+
+    // This will be overridden in the "FULL" package
+    context.Validator.prototype.addDefaultFunctions = function() {};
 
     context.Validator.prototype.validate = function(rules) {
         var results = [];

@@ -17,7 +17,7 @@ module.exports = function(grunt) {
         banner: '<%= banner %>',
         stripBanners: true
       },*/
-      dist: {
+      lite: {
         src: [
             'js/Init.js',
             'js/Exception.js',
@@ -30,6 +30,25 @@ module.exports = function(grunt) {
             'js/Parser.js',
             'js/Validator.js'
         ],
+
+        dest: 'js-release/PupilLite.js'
+      },
+
+      full: {
+        src: [
+            'js/Init.js',
+            'js/Exception.js',
+            'js/LexerException.js',
+            'js/ParserException.js',
+            'js/ValidatorException.js',
+            'js/Lexer.js',
+            'js/Block.js',
+            'js/BlockFactory.js',
+            'js/Parser.js',
+            'js/Validator.js',
+            'js/DefaultFunctions.js'
+        ],
+
         dest: 'js-release/PupilFull.js'
       }
     },
@@ -37,11 +56,17 @@ module.exports = function(grunt) {
       /*options: {
         banner: '<%= banner %>'
       },*/
-      dist: {
-        src: '<%= concat.dist.dest %>',
+      full: {
+        src: '<%= concat.full.dest %>',
         dest: 'js-release/PupilFull.min.js'
+      },
+
+      lite: {
+        src: '<%= concat.lite.dest %>',
+        dest: 'js-release/PupilLite.min.js'
       }
     },
+
     jshint: {
       options: {
         curly: true,
