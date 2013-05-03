@@ -6,13 +6,7 @@
 
     context.Parser.prototype.parse = function(inputString) {
         var tokens = this.Lexer.tokenize(inputString);
-
-        for (var i = 0; i < tokens.length; i++) {
-            console.log(tokens[i][0] + ': ' + tokens[i][1]);
-        }
-
         var blocks = this.tokensToBlocks(tokens);
-        console.log(blocks);
 
         return blocks;
     };

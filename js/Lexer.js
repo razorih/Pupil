@@ -27,11 +27,11 @@
         var tempToDump = [];
 
         for (var i = 0; i < cleanedString.length; i++) {
-            var symbol = cleanedString[i];
+            var symbol = cleanedString.charAt(i);
             var nextSymbol = null;
 
             if (i + 1 < cleanedString.length) {
-                nextSymbol = cleanedString[i + 1];
+                nextSymbol = cleanedString.charAt(i + 1);
             }
 
             // Open a sub-block
@@ -83,7 +83,8 @@
         }
 
         // Make sure we don't have any identifiers lingering around
-                tempIdentifier = tempIdentifier.trim();
+        tempIdentifier = tempIdentifier.trim();
+
         if (tempIdentifier !== "") {
             tokens.push([this.TOKEN_TYPE_IDENTIFIER, tempIdentifier]);
             tempIdentifier = "";

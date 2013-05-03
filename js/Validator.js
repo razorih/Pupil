@@ -49,11 +49,7 @@
                 }
 
                 var fullParameters = [value].concat(parameters);
-                console.log('Calling function \'' + funcName + '\' with the following parameters:');
-                console.log(fullParameters);
                 var functionResult = this.validationFunctions[funcName].apply(this, fullParameters);
-                console.log("Result: " + functionResult);
-                console.log("Previous operator: " + previousOperator);
 
                 // With OR, the result will be true if the new result is true
                 if (previousOperator == 1 && functionResult) {
