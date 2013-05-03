@@ -7,12 +7,11 @@
     };
 
     /**
-     * Analyzes the given string and returns a set of pre-tokens
-     * that should next be evaluated by the evaluate method.
+     * Analyzes the given string and returns a set of tokens.
      *
      * @param   {String}  inputString  The input string
      *
-     * @return  {Array}                An array of pre-tokens
+     * @return  {Array}                An array of tokens
      */
     context.Lexer.prototype.tokenize = function(inputString) {
         var tokens = [];
