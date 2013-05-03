@@ -51,20 +51,24 @@
             else if (symbol == "|" && nextSymbol == "|") {
                 shouldDumpIdentifier = true;
                 tempToDump = [this.TOKEN_TYPE_OPERATOR, 1];
+                i++;
             }
 
             // An AND operator
             else if (symbol == "&" && nextSymbol == "&") {
                 shouldDumpIdentifier = true;
                 tempToDump = [this.TOKEN_TYPE_OPERATOR, 2];
+                i++;
             }
 
             // An identifier
             else {
-                tempIdentifier++;
+                tempIdentifier += symbol;
             }
 
             if (shouldDumpIdentifier) {
+                tempIdentifier = tempIdentifier.trim();
+
                 if (tempIdentifier !== "") {
                     tokens.push([this.TOKEN_TYPE_IDENTIFIER, tempIdentifier]);
                     tempIdentifier = "";
@@ -73,12 +77,14 @@
                 shouldDumpIdentifier = false;
             }
 
-            if (tempToDump) {
+            if (tempToDump.length > 0) {
                 tokens.push(tempToDump);
+                tempToDump = [];
             }
         }
 
         // Make sure we don't have any identifiers lingering around
+                tempIdentifier = tempIdentifier.trim();
         if (tempIdentifier !== "") {
             tokens.push([this.TOKEN_TYPE_IDENTIFIER, tempIdentifier]);
             tempIdentifier = "";

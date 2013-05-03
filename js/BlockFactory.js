@@ -11,7 +11,7 @@
         return block;
     };
 
-    context.BlockFactory.prototype.getValueInstance = function() {
+    context.BlockFactory.prototype.getIdentifierInstance = function() {
         var block = this.getInstance();
         block.type = 1;
 

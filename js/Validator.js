@@ -4,25 +4,33 @@
             this.Parser = Parser;
         } else {
             var Lexer = new context.Lexer();
-            this.Parser = new context.Parser(Lexer);
+            var BlockFactory = new context.BlockFactory(context.Block);
+
+            this.Parser = new context.Parser(Lexer, BlockFactory);
         }
 
         this.validationFunctions = {};
     };
 
-    context.Validator.addFunction = function(name, func) {
+    context.Validator.prototype.addFunction = function(name, func) {
         this.validationFunctions[name] = func;
     };
 
-    context.Validator.validate = function(inputString) {
-        var blocks = this.Parser.parse(inputString);
+    context.Validator.prototype.validate = function(rules) {
+        var results = [];
 
-        var validationResult = this.validateBlock(blocks);
-        return validationResult;
+        for (var key in rules) {
+            var value = rules[key][0];
+            var rootBlock = this.Parser.parse(rules[key][1]);
+
+            results[key] = this.validateBlock(value, rootBlock);
+        }
+
+        return results;
     };
 
-    context.Validator.validateBlock = function(block) {
-        var previousBoolean = true;
+    context.Validator.prototype.validateBlock = function(value, block) {
+        var previousBoolean = false;
         var previousOperator = 1;
 
         for (var i = 0; i < block.blocks.length; i++) {
@@ -40,15 +48,24 @@
                     parameters = parts[1].split(",");
                 }
 
-                var functionResult = this.validationFunctions[funcName].apply(this, parameters);
+                var fullParameters = [value].concat(parameters);
+                console.log('Calling function \'' + funcName + '\' with the following parameters:');
+                console.log(fullParameters);
+                var functionResult = this.validationFunctions[funcName].apply(this, fullParameters);
+                console.log("Result: " + functionResult);
+                console.log("Previous operator: " + previousOperator);
 
                 // With OR, the result will be true if the new result is true
                 if (previousOperator == 1 && functionResult) {
                     previousBoolean = true;
 
                 // With AND, both the previous result (previousBoolean) and the current one have to be true for this to be true
-                } else if (previousOperator == 2 && previousBoolean && functionResult) {
-                    previousBoolean = true;
+                } else if (previousOperator == 2) {
+                    if (previousBoolean && functionResult) {
+                        previousBoolean = true;
+                    } else {
+                        previousBoolean = false;
+                    }
                 }
             }
 
@@ -59,15 +76,19 @@
 
             // Sub-block
             else if (currentBlock.type == 3) {
-                var blockResult = this.validateBlock(currentBlock);
+                var blockResult = this.validateBlock(value, currentBlock);
 
                 // With OR, the result will be true if the new result is true
                 if (previousOperator == 1 && blockResult) {
                     previousBoolean = true;
 
                 // With AND, both the previous result (previousBoolean) and the current one have to be true for this to be true
-                } else if (previousOperator == 2 && previousBoolean && blockResult) {
-                    previousBoolean = true;
+                } else if (previousOperator == 2) {
+                    if (previousBoolean && blockResult) {
+                        previousBoolean = true;
+                    } else {
+                        previousBoolean = false;
+                    }
                 }
             }
         }
