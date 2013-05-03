@@ -12,6 +12,8 @@
         (function() {
             console.log(window);
 
+            
+
             var factory = new window.BlockParser.BlockFactory(window.BlockParser.Block);
             var parser = new window.BlockParser.BlockSeparator(factory);
 

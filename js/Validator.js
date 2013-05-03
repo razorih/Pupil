@@ -1,5 +1,12 @@
 (function(context) {
-    context.Validator = function(Parser, Lexer) {
+    context.Validator = function(Parser) {
+        if (typeof Parser !== "undefined") {
+            this.Parser = Parser;
+        } else {
+            var Lexer = new context.Lexer();
+            this.Parser = new context.Parser(Lexer);
+        }
+
         this.validationFunctions = {};
     };
 
@@ -7,7 +14,9 @@
         this.validationFunctions[name] = func;
     };
 
-    context.Validator.validate = function(blocks) {
+    context.Validator.validate = function(inputString) {
+        var blocks = this.Parser.parse(inputString);
+
         var validationResult = this.validateBlock(blocks);
         return validationResult;
     };

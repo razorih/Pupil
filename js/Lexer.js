@@ -14,7 +14,7 @@
      *
      * @return  {Array}                An array of pre-tokens
      */
-    context.Lexer.prototype.analyze = function(inputString) {
+    context.Lexer.prototype.tokenize = function(inputString) {
         var tokens = [];
         var cleanedString = inputString.trim();
 
