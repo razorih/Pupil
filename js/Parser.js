@@ -40,7 +40,7 @@
                 if (blockNest.length > 0) {
                     currentBlock = blockNest.pop();
                 } else {
-                    throw "No block to ascend to!";
+                    throw new context.ParserException("No block to ascend to!");
                 }
             }
 
@@ -60,7 +60,7 @@
         }
 
         if (blockNest.length > 0) {
-            throw "Unclosed blocks!";
+            throw new context.ParserException("Unclosed blocks!");
         }
 
         return rootBlock;

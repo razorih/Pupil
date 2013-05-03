@@ -44,6 +44,10 @@
                 var parts = currentBlock.identifier.split(":");
                 funcName = parts[0];
 
+                if (typeof this.validationFunctions[funcName] === "undefined") {
+                    throw new context.ValidatorException("Validator function '" + funcName + "' was not found!");
+                }
+
                 if (parts.length >= 2) {
                     parameters = parts[1].split(",");
                 }
