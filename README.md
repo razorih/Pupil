@@ -34,5 +34,6 @@ The following example:
 
 Would return true, as even though 18 is over the given "max", it's between 15 and 20, which is marked as an "OR" rule alongside "max:10".
 ## TODO
-* PHP version
-* Parser caching
+* Concatenate and minify the JS files
+* Start work on the PHP version
+* Add parser caching
