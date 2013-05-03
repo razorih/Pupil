@@ -1,6 +1,12 @@
 # Pupil
 Pupil is a multi-purpose validation library for JavaScript and PHP that supports deeply nested validation rules.
 
+### Main features
+* Supports IE7+
+* Supports deeply nested validation rules
+* Supports multiple validator instances with their own validation functions
+* Supports supplying your own lexer and/or parser
+
 ## Usage
 
 ### JavaScript
